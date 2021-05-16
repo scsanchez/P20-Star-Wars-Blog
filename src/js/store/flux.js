@@ -1,42 +1,63 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			people: {},
+			peopleDetails: {},
+			species: {},
+			speciesDetails: {}
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
+			getPeople: () => {
+				fetch("https://www.swapi.tech/api/people/", { method: "GET" })
+					.then(function(response) {
+						if (!response.ok) {
+							throw Error(response.statusText);
+						}
+						return response.json();
+					})
+					.then(function(responseAsJson) {
+						setStore({ people: responseAsJson });
+					});
 			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
+			getPeopleDetails: uid => {
+				fetch("https://www.swapi.tech/api/people/".concat(uid), { method: "GET" })
+					.then(function(response) {
+						if (!response.ok) {
+							throw Error(response.statusText);
+						}
+						return response.json();
+					})
+					.then(function(responseAsJson) {
+						console.log(responseAsJson, "joder");
+						setStore({ peopleDetails: responseAsJson });
+					});
 			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
+			getSpecies: async () => {
+				try {
+					let response = await fetch("https://www.swapi.tech/api/species/");
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
+					if (response.ok) {
+						let responseAsJson = await response.json();
+						setStore({ species: responseAsJson });
+					} else {
+						throw new Error(response.statusText, "code:", response.status);
+					}
+				} catch (error) {
+					console.log(error);
+				}
+			},
+			getSpeciesDetails: uid => {
+				fetch("https://www.swapi.tech/api/species/".concat(uid), { method: "GET" })
+					.then(function(response) {
+						if (!response.ok) {
+							throw Error(response.statusText);
+						}
+						return response.json();
+					})
+					.then(function(responseAsJson) {
+						console.log(responseAsJson, "joder");
+						setStore({ speciesDetails: responseAsJson });
+					});
 			}
 		}
 	};

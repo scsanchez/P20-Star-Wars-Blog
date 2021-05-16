@@ -1,15 +1,14 @@
 import React from "react";
-import rigoImage from "../../img/rigo-baby.jpg";
 import "../../styles/home.scss";
 
 export const Home = () => (
 	<div className="text-center mt-5">
-		<h1>Hello Rigo!</h1>
-		<p>
-			<img src={rigoImage} />
-		</p>
-		<a href="#" className="btn btn-success">
-			If you see this green button, bootstrap is working
+		<img
+			className="homeImage"
+			src="https://db-api.elestimulo.com/app/uploads/2016/01/Star-Wars-Logo1-1100x572.jpg"
+		/>
+		<a href="#" className="btn btn-warning">
+			If you see this yellow button, the power of jedi is working
 		</a>
 	</div>
 );

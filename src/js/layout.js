@@ -3,8 +3,12 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
 import { Home } from "./views/home";
-import { Demo } from "./views/demo";
-import { Single } from "./views/single";
+import { People } from "./views/people";
+import { PeopleDetails } from "./views/people-details";
+
+import { Species } from "./views/species";
+import { SpeciesDetails } from "./views/species-details";
+
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
@@ -25,14 +29,23 @@ const Layout = () => {
 						<Route exact path="/">
 							<Home />
 						</Route>
-						<Route exact path="/demo">
-							<Demo />
+						<Route exact path="/home">
+							<Home />
 						</Route>
-						<Route exact path="/single/:theid">
-							<Single />
+						<Route exact path="/people">
+							<People />
+						</Route>
+						<Route exact path="/people/:id">
+							<PeopleDetails />
+						</Route>
+						<Route exact path="/species">
+							<Species />
+						</Route>
+						<Route exact path="/species/:id">
+							<SpeciesDetails />
 						</Route>
 						<Route>
-							<h1>Not found!</h1>
+							<h1>sorry, not found :(</h1>
 						</Route>
 					</Switch>
 					<Footer />
@@ -43,3 +56,18 @@ const Layout = () => {
 };
 
 export default injectContext(Layout);
+
+/*
+                        <Route exact path="/planets">
+							<Planets />
+						</Route>
+                        <Route exact path="/planets/:id">
+							<PlanetsDetails />
+						</Route>
+                        <Route exact path="/species">
+							<Species />
+						</Route>
+                        <Route exact path="/species/:id">
+							<SpeciesDetails />
+                        </Route>
+*/
